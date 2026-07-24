@@ -1,18 +1,23 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
+module.exports = (sequelize, DataTypes) => {
+  const OrderItem = sequelize.define("OrderItem", {
+    orderId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    productId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  });
 
-const OrderItem = sequelize.define("OrderItem", {
-  orderId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  productId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  quantity: {
-    type: DataTypes.INTEGER,
-  },
-});
+  OrderItem.associate = (models) => {
+    OrderItem.belongsTo(models.Order);
+    OrderItem.belongsTo(models.Product);
+  };
 
-module.exports = OrderItem;
+  return OrderItem;
+};
