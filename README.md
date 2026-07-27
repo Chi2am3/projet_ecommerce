@@ -28,20 +28,21 @@ Le schéma a été conçu sur [dbdiagram.io](https://dbdiagram.io) avant l'écri
 
 Depuis le dossier `server` :
 
-\`\`\`bash
+```bash
 npm install
 npx sequelize-cli db:migrate
-\`\`\`
+```
 
 Ça va créer le fichier `database.sqlite` avec les 4 tables (`Users`, `Products`, `Orders`, `OrderItems`).
 
 ## Structure du projet
 
-\`\`\`
+```
 projet_ecommerce/
 ├── server/
-│ ├── config/ → connexion Sequelize (config.json, database.js)
-│ ├── migrations/ → migrations Sequelize
-│ ├── models/ → modèles Sequelize (User, Product, Order, OrderItem)
-│ └── seeders/
-└── client/ → application Nuxt
+│   ├── config/       → connexion Sequelize (config.json, database.js)
+│   ├── migrations/   → migrations Sequelize
+│   ├── models/       → modèles Sequelize (User, Product, Order, OrderItem)
+│   └── seeders/
+└── client/           → application Nuxt
+```
