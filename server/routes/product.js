@@ -4,7 +4,7 @@ const { Product } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
-    const products = await Product.findAll();
+    const products = await Product.findAll(); //équivalent SELECT * FROM Products
     res.json(products);
   } catch (error) {
     console.error(error);
