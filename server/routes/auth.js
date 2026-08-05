@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 
 router.post("/register", async (req, res) => {
@@ -49,8 +50,15 @@ router.post("/login", async (req, res) => {
         .json({ message: "Email ou mot de passe incorrect." });
     }
 
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" },
+    );
+
     res.json({
       message: "Connexion réussie.",
+      token,
       user: { id: user.id, firstName: user.firstName, email: user.email },
     });
   } catch (error) {
