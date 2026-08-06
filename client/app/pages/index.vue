@@ -2,8 +2,14 @@
   <div>
     <h1>Accueil</h1>
     <v-row>
-      <v-col v-for="product in products" :key="product.id">
-        <v-card>
+      <v-col
+        v-for="product in products"
+        :key="product.id"
+        cols="12"
+        sm="6"
+        md="4"
+      >
+        <v-card :to="`/product/${product.id}`">
           <v-card-title>{{ product.name }}</v-card-title>
           <v-card-subtitle
             >{{ product.origin }} — {{ product.roast }}</v-card-subtitle
