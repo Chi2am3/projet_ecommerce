@@ -20,16 +20,22 @@
         <p><strong>Prix :</strong> {{ product.price }} €</p>
         <p><strong>Stock :</strong> {{ product.stock }}</p>
       </v-card-text>
+      <v-btn color="primary" @click="handleAddToCart">Ajouter au panier</v-btn>
     </v-card>
   </v-container>
 </template>
 
 <script setup>
 const route = useRoute();
+const cartStore = useCartStore();
 
 const {
   data: product,
   pending,
   error,
 } = await useFetch(`http://localhost:3001/api/products/${route.params.id}`);
+
+function handleAddToCart() {
+  cartStore.addToCart(product.value);
+}
 </script>
