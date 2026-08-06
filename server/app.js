@@ -5,6 +5,9 @@ const port = 3001;
 const { sequelize } = require("./models");
 const productRoutes = require("./routes/product");
 const authRoutes = require("./routes/auth");
+const cors = require("cors");
+
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
