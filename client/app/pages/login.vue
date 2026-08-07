@@ -1,21 +1,41 @@
 <template>
-  <v-container>
-    <h1>Connexion</h1>
-    <v-form @submit.prevent="handleLogin">
-      <v-text-field v-model="email" label="Email" type="email" required />
-      <v-text-field
-        v-model="password"
-        label="Mot de passe"
-        type="password"
-        required
-      />
-      <v-btn type="submit" color="primary">Se connecter</v-btn>
-    </v-form>
+  <div class="auth-container">
+    <v-card class="auth-card" elevation="3">
+      <v-card-text class="pa-8">
+        <h1 class="text-h4 text-center mb-6">Connexion</h1>
 
-    <v-alert v-if="errorMessage" type="error" class="mt-4">
-      {{ errorMessage }}
-    </v-alert>
-  </v-container>
+        <v-form @submit.prevent="handleLogin">
+          <v-text-field
+            v-model="email"
+            label="Email"
+            type="email"
+            class="mb-2"
+            required
+          />
+          <v-text-field
+            v-model="password"
+            label="Mot de passe"
+            type="password"
+            class="mb-2"
+            required
+          />
+          <v-btn
+            type="submit"
+            color="primary"
+            block
+            size="large"
+            class="mt-4"
+          >
+            Se connecter
+          </v-btn>
+        </v-form>
+
+        <v-alert v-if="errorMessage" type="error" class="mt-6">
+          {{ errorMessage }}
+        </v-alert>
+      </v-card-text>
+    </v-card>
+  </div>
 </template>
 
 <script setup>

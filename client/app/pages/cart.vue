@@ -1,53 +1,74 @@
 <template>
-  <v-container>
-    <h1>Panier</h1>
+  <div class="page-container">
+    <h1 class="page-title text-h4">Panier</h1>
 
-    <div v-if="cartStore.items.length === 0">
-      <p>Votre panier est vide.</p>
-    </div>
+    <v-alert v-if="cartStore.items.length === 0" type="info" variant="tonal">
+      Votre panier est vide.
+    </v-alert>
 
     <div v-else>
-      <v-list>
-        <v-list-item v-for="item in cartStore.items" :key="item.product.id">
-          <v-row align="center">
-            <v-col cols="4">
-              <strong>{{ item.product.name }}</strong>
-            </v-col>
-            <v-col cols="3"> {{ item.product.price }} € / unité </v-col>
-            <v-col cols="3">
-              <v-btn
-                icon="mdi-minus"
-                size="small"
-                @click="cartStore.decreaseQuantity(item.product.id)"
-              ></v-btn>
-              {{ item.quantity }}
-              <v-btn
-                icon="mdi-plus"
-                size="small"
-                @click="cartStore.increaseQuantity(item.product.id)"
-              ></v-btn>
-            </v-col>
-            <v-col cols="2">
-              <v-btn
-                icon="mdi-delete"
-                size="small"
-                color="error"
-                @click="cartStore.removeFromCart(item.product.id)"
-              ></v-btn>
-            </v-col>
-          </v-row>
-        </v-list-item>
-      </v-list>
+      <v-card class="section" elevation="1">
+        <v-list lines="two">
+          <template
+            v-for="(item, index) in cartStore.items"
+            :key="item.product.id"
+          >
+            <v-list-item>
+              <v-row align="center" no-gutters>
+                <v-col cols="12" sm="4">
+                  <strong>{{ item.product.name }}</strong>
+                </v-col>
+                <v-col cols="6" sm="3" class="text-medium-emphasis">
+                  {{ item.product.price }} € / unité
+                </v-col>
+                <v-col cols="6" sm="3" class="d-flex align-center">
+                  <v-btn
+                    icon="mdi-minus"
+                    size="small"
+                    variant="outlined"
+                    @click="cartStore.decreaseQuantity(item.product.id)"
+                  ></v-btn>
+                  <span class="mx-3">{{ item.quantity }}</span>
+                  <v-btn
+                    icon="mdi-plus"
+                    size="small"
+                    variant="outlined"
+                    @click="cartStore.increaseQuantity(item.product.id)"
+                  ></v-btn>
+                </v-col>
+                <v-col cols="12" sm="2" class="text-sm-right">
+                  <v-btn
+                    icon="mdi-delete"
+                    size="small"
+                    variant="text"
+                    color="error"
+                    @click="cartStore.removeFromCart(item.product.id)"
+                  ></v-btn>
+                </v-col>
+              </v-row>
+            </v-list-item>
+            <v-divider v-if="index < cartStore.items.length - 1"></v-divider>
+          </template>
+        </v-list>
+      </v-card>
 
-      <v-divider class="my-4"></v-divider>
-
-      <h2>Total : {{ cartStore.totalPrice.toFixed(2) }} €</h2>
-
-      <v-btn color="primary" class="mt-4" to="/order">
-        Passer la commande
-      </v-btn>
+      <v-card class="section" elevation="1">
+        <v-card-text
+          class="d-flex flex-column flex-sm-row align-center justify-space-between"
+        >
+          <h2 class="text-h5">
+            Total :
+            <span class="text-primary"
+              >{{ cartStore.totalPrice.toFixed(2) }} €</span
+            >
+          </h2>
+          <v-btn color="primary" size="large" to="/order" class="mt-4 mt-sm-0">
+            Passer la commande
+          </v-btn>
+        </v-card-text>
+      </v-card>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script setup>

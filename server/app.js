@@ -6,8 +6,16 @@ const { sequelize } = require("./models");
 const productRoutes = require("./routes/product");
 const authRoutes = require("./routes/auth");
 const cors = require("cors");
+const orderRoutes = require("./routes/orders");
 
+// Middlewares
 app.use(cors());
+app.use(express.json());
+
+// Routes
+app.use("/api/orders", orderRoutes);
+app.use("/api/products", productRoutes); // on récupère la route
+app.use("/api", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -16,12 +24,6 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-
-app.use(express.json());
-
-app.use("/api/products", productRoutes); // on récupère la route
-
-app.use("/api", authRoutes);
 
 async function testConnection() {
   try {
